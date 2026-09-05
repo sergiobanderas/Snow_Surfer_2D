@@ -13,7 +13,11 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
 
     Vector2 moveValue;
-    
+    [HideInInspector]
+    private bool canControlPlayer = true;
+
+    public bool CanControlPlayer { get => canControlPlayer; set => canControlPlayer = value; }
+
     void Start()
     {        
         moveAction = InputSystem.actions.FindAction("Move");
@@ -24,8 +28,12 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        RotatePlayer();
-        BoostPlayer();
+        if (CanControlPlayer)
+        {
+            RotatePlayer();
+            BoostPlayer();
+        }
+        
     }
 
     void RotatePlayer()
