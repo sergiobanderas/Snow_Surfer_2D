@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -88,6 +89,16 @@ public class PlayerController : MonoBehaviour
         }
 
         previousRotation = currentRotation;
+        
+    }
+
+    internal void ActivatePowerUpEffect(PowerUpScriptableObject powerUpData)
+    {
+        if (powerUpData.PowerUpType == "speed")
+        {
+            baseSpeed += powerUpData.ValueChange;
+            boostMultiplier += powerUpData.ValueChange;
+        }
         
     }
 }
