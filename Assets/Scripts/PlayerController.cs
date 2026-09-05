@@ -92,12 +92,22 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    internal void ActivatePowerUpEffect(PowerUpScriptableObject powerUpData)
+    public void ActivatePowerUpEffect(PowerUpScriptableObject powerUpData)
     {
         if (powerUpData.PowerUpType == "speed")
         {
             baseSpeed += powerUpData.ValueChange;
             boostMultiplier += powerUpData.ValueChange;
+        }
+        
+    }
+
+    public void DeactivatePowerUpEffect(PowerUpScriptableObject powerUpData)
+    {
+        if (powerUpData.PowerUpType == "speed")
+        {
+            baseSpeed -= powerUpData.ValueChange;
+            boostMultiplier -= powerUpData.ValueChange;
         }
         
     }
