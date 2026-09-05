@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float torqueForce = 2.5f;
     [SerializeField] private float baseSpeed = 15f;
     [SerializeField] private float boostMultiplier = 20f;
+    [SerializeField] private ParticleSystem powerUpParticles;
 
     private Rigidbody2D rb;
     SurfaceEffector2D surfaceEffector2D;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     float previousRotation;
     float totalRotation;
     int flipCount;
+    int activatePowerUpCount;
 
 
 
@@ -33,7 +35,7 @@ public class PlayerController : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         rb = GetComponent<Rigidbody2D>();   
         surfaceEffector2D = FindAnyObjectByType<SurfaceEffector2D>();
-        scoreManager = FindAnyObjectByType<ScoreManager>();
+        scoreManager = FindAnyObjectByType<ScoreManager>();        
     }
 
     
@@ -94,6 +96,8 @@ public class PlayerController : MonoBehaviour
 
     public void ActivatePowerUpEffect(PowerUpScriptableObject powerUpData)
     {
+        powerUpParticles.Play();
+        activatePowerUpCount++;
         if (powerUpData.PowerUpType == "speed")
         {
             baseSpeed += powerUpData.ValueChange;
@@ -104,6 +108,11 @@ public class PlayerController : MonoBehaviour
 
     public void DeactivatePowerUpEffect(PowerUpScriptableObject powerUpData)
     {
+        activatePowerUpCount--;
+        if (activatePowerUpCount == 0)
+        {
+            powerUpParticles.Stop();
+        }
         if (powerUpData.PowerUpType == "speed")
         {
             baseSpeed -= powerUpData.ValueChange;

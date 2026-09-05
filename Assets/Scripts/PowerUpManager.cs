@@ -33,8 +33,7 @@ public class PowerUpManager : MonoBehaviour
 
                 if (timeLeft <= 0)
                 {
-                    playerController.DeactivatePowerUpEffect(powerUpData);
-
+                    playerController.DeactivatePowerUpEffect(powerUpData);           
                 }
         
             }
